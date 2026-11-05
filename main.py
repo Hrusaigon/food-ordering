@@ -13,12 +13,6 @@ def default():
 def about_us():
     return render_template("about_us.html")
 
-
-@app.route("/food-category")
-def food_category():
-    return render_template("food_category.html")
-
-
 @app.route("/menu")
 def menu():
     db = sqlite3.connect("food.db")
