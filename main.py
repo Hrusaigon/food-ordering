@@ -1,5 +1,5 @@
 from flask import Flask, render_template
-import os
+import os, sqlite3
 
 current_folder = os.getcwd() # current working directory
 
@@ -21,7 +21,17 @@ def food_category():
 
 @app.route("/menu")
 def menu():
-    return render_template("menu.html")
+    db = sqlite3.connect("food.db")
+    cursor = db.cursor()
+
+    query = """SELECT category FROM category"""
+    category_list = cursor.execute(query).fetchall()
+
+    query = """SELECT * FROM menu"""
+    menu = cursor.execute(query).fetchall()
+
+    return render_template("menu.html", categories=category_list, menu=menu)
+
 
 
 @app.route("/cart")
