@@ -1,0 +1,16 @@
+.navbar {
+    display: flex;
+    justify-content: center;    
+    gap: 10px
+}
+
+.navbar a {
+    color: white;
+    text-decoration: none;
+    font-size: 10
+}
+
+.navbar a:hover {
+    text-decoration: underline;
+    text-shadow: 1.5px 1.5px bisque
+}
