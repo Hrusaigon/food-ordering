@@ -1,13 +1,408 @@
-<h1>My cart</h1>
-<link rel="stylesheet" href="{{ url_for('static', filename='cart.css') }}">
-<hr>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Checkout</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="checkout.css">
+</head>
+<body>
 
-<h2>Cart is empty</h2>
-<p><a href="#">Continue Browsing</a></p>
+<header class="topbar">
+  <a class="brand" href="#">Your Store</a>
+  <p class="secure">Secure checkout</p>
+</header>
 
-<hr>
+<main class="checkout">
 
-<p>LOGO</p>
-<p>123 Culinary Ave, Food City, FC 45678</p>
-<p>(555) 123-4567</p>
-<p>hello@mylocalbusiness.com</p>
+  <!-- ============ FORM ============ -->
+  <form class="form" id="checkout-form" novalidate>
+
+    <section class="block">
+      <h2>Contact</h2>
+      <div class="field">
+        <label for="email">Email</label>
+        <input id="email" name="email" type="email" autocomplete="email" placeholder="you@example.com" required>
+        <p class="error" data-for="email">Enter a valid email address.</p>
+      </div>
+      <div class="field">
+        <label for="phone">Phone</label>
+        <input id="phone" name="phone" type="tel" autocomplete="tel" placeholder="+84 90 123 4567" required>
+        <p class="error" data-for="phone">Enter a phone number so the courier can reach you.</p>
+      </div>
+    </section>
+
+    <section class="block">
+      <h2>Shipping address</h2>
+      <div class="row">
+        <div class="field">
+          <label for="first">First name</label>
+          <input id="first" name="first" autocomplete="given-name" required>
+          <p class="error" data-for="first">Enter your first name.</p>
+        </div>
+        <div class="field">
+          <label for="last">Last name</label>
+          <input id="last" name="last" autocomplete="family-name" required>
+          <p class="error" data-for="last">Enter your last name.</p>
+        </div>
+      </div>
+      <div class="field">
+        <label for="address1">Street address</label>
+        <input id="address1" name="address1" autocomplete="address-line1" required>
+        <p class="error" data-for="address1">Enter your street address.</p>
+      </div>
+      <div class="field">
+        <label for="address2">Apartment, suite, etc. <span class="opt">(optional)</span></label>
+        <input id="address2" name="address2" autocomplete="address-line2">
+      </div>
+      <div class="row">
+        <div class="field">
+          <label for="city">City</label>
+          <input id="city" name="city" autocomplete="address-level2" required>
+          <p class="error" data-for="city">Enter your city.</p>
+        </div>
+        <div class="field">
+          <label for="state">State / Province</label>
+          <input id="state" name="state" autocomplete="address-level1">
+        </div>
+      </div>
+      <div class="row">
+        <div class="field">
+          <label for="zip">Postal code</label>
+          <input id="zip" name="zip" autocomplete="postal-code" required>
+          <p class="error" data-for="zip">Enter your postal code.</p>
+        </div>
+        <div class="field">
+          <label for="country">Country</label>
+          <select id="country" name="country" autocomplete="country" required>
+            <option value="VN">Vietnam</option>
+            <option value="US">United States</option>
+            <option value="GB">United Kingdom</option>
+            <option value="CA">Canada</option>
+            <option value="AU">Australia</option>
+            <option value="SG">Singapore</option>
+            <option value="JP">Japan</option>
+            <option value="DE">Germany</option>
+            <option value="FR">France</option>
+          </select>
+        </div>
+      </div>
+      <label class="check">
+        <input type="checkbox" id="same-billing" checked>
+        <span>Billing address is the same as shipping</span>
+      </label>
+    </section>
+
+    <section class="block">
+      <h2>Delivery</h2>
+      <div class="options" role="radiogroup" aria-label="Delivery method">
+        <label class="option">
+          <input type="radio" name="shipping" value="0" data-label="Standard" checked>
+          <span class="option-body">
+            <span class="option-title">Standard</span>
+            <span class="option-sub">5–7 business days</span>
+          </span>
+          <span class="option-price">Free</span>
+        </label>
+        <label class="option">
+          <input type="radio" name="shipping" value="6" data-label="Express">
+          <span class="option-body">
+            <span class="option-title">Express</span>
+            <span class="option-sub">2–3 business days</span>
+          </span>
+          <span class="option-price">$6.00</span>
+        </label>
+        <label class="option">
+          <input type="radio" name="shipping" value="14" data-label="Next day">
+          <span class="option-body">
+            <span class="option-title">Next day</span>
+            <span class="option-sub">Order before 2 pm</span>
+          </span>
+          <span class="option-price">$14.00</span>
+        </label>
+      </div>
+    </section>
+
+    <section class="block">
+      <h2>Payment</h2>
+
+      <div class="tabs" role="tablist" aria-label="Payment method">
+        <button type="button" role="tab" class="tab is-active" data-panel="card" aria-selected="true">Credit / debit card</button>
+        <button type="button" role="tab" class="tab" data-panel="wallet" aria-selected="false">E-wallet</button>
+        <button type="button" role="tab" class="tab" data-panel="cod" aria-selected="false">Cash on delivery</button>
+      </div>
+
+      <!-- Card -->
+      <div class="panel is-active" id="panel-card" role="tabpanel">
+        <div class="field">
+          <label for="card-name">Name on card</label>
+          <input id="card-name" name="card-name" autocomplete="cc-name" required>
+          <p class="error" data-for="card-name">Enter the name as it appears on the card.</p>
+        </div>
+        <div class="field">
+          <label for="card-number">Card number</label>
+          <div class="input-wrap">
+            <input id="card-number" name="card-number" inputmode="numeric" autocomplete="cc-number" placeholder="1234 5678 9012 3456" maxlength="23" required>
+            <span class="card-brand" id="card-brand" aria-hidden="true"></span>
+          </div>
+          <p class="error" data-for="card-number">Enter a valid card number.</p>
+        </div>
+        <div class="row">
+          <div class="field">
+            <label for="card-exp">Expiry date</label>
+            <input id="card-exp" name="card-exp" inputmode="numeric" autocomplete="cc-exp" placeholder="MM / YY" maxlength="7" required>
+            <p class="error" data-for="card-exp">Enter a valid, future expiry date.</p>
+          </div>
+          <div class="field">
+            <label for="card-cvc">Security code</label>
+            <input id="card-cvc" name="card-cvc" inputmode="numeric" autocomplete="cc-csc" placeholder="CVC" maxlength="4" required>
+            <p class="error" data-for="card-cvc">Enter the 3 or 4 digit code.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Wallet -->
+      <div class="panel" id="panel-wallet" role="tabpanel">
+        <div class="options">
+          <label class="option"><input type="radio" name="wallet" value="momo" checked><span class="option-body"><span class="option-title">MoMo</span></span></label>
+          <label class="option"><input type="radio" name="wallet" value="zalopay"><span class="option-body"><span class="option-title">ZaloPay</span></span></label>
+          <label class="option"><input type="radio" name="wallet" value="paypal"><span class="option-body"><span class="option-title">PayPal</span></span></label>
+        </div>
+        <p class="note">You'll be redirected to your wallet to approve the payment.</p>
+      </div>
+
+      <!-- COD -->
+      <div class="panel" id="panel-cod" role="tabpanel">
+        <p class="note">Pay in cash when your order arrives. Please have the exact amount ready.</p>
+      </div>
+    </section>
+
+    <section class="block" id="billing-block" hidden>
+      <h2>Billing address</h2>
+      <div class="field">
+        <label for="b-address1">Street address</label>
+        <input id="b-address1" name="b-address1" autocomplete="billing address-line1">
+      </div>
+      <div class="row">
+        <div class="field">
+          <label for="b-city">City</label>
+          <input id="b-city" name="b-city" autocomplete="billing address-level2">
+        </div>
+        <div class="field">
+          <label for="b-zip">Postal code</label>
+          <input id="b-zip" name="b-zip" autocomplete="billing postal-code">
+        </div>
+      </div>
+    </section>
+
+    <button type="submit" class="pay" id="pay-btn">Pay <span id="pay-total">$0.00</span></button>
+    <p class="fine">By placing your order you agree to the <a href="#">Terms of Sale</a> and <a href="#">Privacy Policy</a>.</p>
+  </form>
+
+  <!-- ============ SUMMARY ============ -->
+  <aside class="summary" aria-label="Order summary">
+    <h2>Your cart</h2>
+
+    <ul class="items" id="items">
+      <li class="item" data-price="48">
+        <div class="thumb" style="--tint:#c9d6f2"><span class="qty-badge">1</span></div>
+        <div class="item-info">
+          <p class="item-name">Canvas Weekender Bag</p>
+          <p class="item-meta">Navy</p>
+          <div class="stepper">
+            <button type="button" class="step" data-dir="-1" aria-label="Decrease quantity">−</button>
+            <output class="step-val">1</output>
+            <button type="button" class="step" data-dir="1" aria-label="Increase quantity">+</button>
+            <button type="button" class="remove">Remove</button>
+          </div>
+        </div>
+        <p class="item-price">$48.00</p>
+      </li>
+
+      <li class="item" data-price="22">
+        <div class="thumb" style="--tint:#f2d9c9"><span class="qty-badge">2</span></div>
+        <div class="item-info">
+          <p class="item-name">Ceramic Pour-over Set</p>
+          <p class="item-meta">Matte white</p>
+          <div class="stepper">
+            <button type="button" class="step" data-dir="-1" aria-label="Decrease quantity">−</button>
+            <output class="step-val">2</output>
+            <button type="button" class="step" data-dir="1" aria-label="Increase quantity">+</button>
+            <button type="button" class="remove">Remove</button>
+          </div>
+        </div>
+        <p class="item-price">$44.00</p>
+      </li>
+
+      <li class="item" data-price="15">
+        <div class="thumb" style="--tint:#d3ecd9"><span class="qty-badge">1</span></div>
+        <div class="item-info">
+          <p class="item-name">Linen Tea Towel</p>
+          <p class="item-meta">Sage</p>
+          <div class="stepper">
+            <button type="button" class="step" data-dir="-1" aria-label="Decrease quantity">−</button>
+            <output class="step-val">1</output>
+            <button type="button" class="step" data-dir="1" aria-label="Increase quantity">+</button>
+            <button type="button" class="remove">Remove</button>
+          </div>
+        </div>
+        <p class="item-price">$15.00</p>
+      </li>
+    </ul>
+
+    <p class="empty" id="empty" hidden>Your cart is empty. Add something to continue.</p>
+
+    <form class="promo" id="promo-form">
+      <label for="promo" class="sr-only">Discount code</label>
+      <input id="promo" placeholder="Discount code">
+      <button type="submit">Apply</button>
+    </form>
+    <p class="promo-msg" id="promo-msg" role="status"></p>
+
+    <dl class="totals">
+      <div><dt>Subtotal</dt><dd id="subtotal">$0.00</dd></div>
+      <div id="discount-row" hidden><dt>Discount</dt><dd id="discount">−$0.00</dd></div>
+      <div><dt>Shipping <span class="opt" id="ship-label">Standard</span></dt><dd id="shipping">Free</dd></div>
+      <div><dt>Tax <span class="opt">(8%)</span></dt><dd id="tax">$0.00</dd></div>
+      <div class="grand"><dt>Total</dt><dd id="total">$0.00</dd></div>
+    </dl>
+  </aside>
+
+</main>
+
+<div class="toast" id="toast" role="status" aria-live="polite" hidden>
+  <p><strong>Order placed.</strong> A confirmation is on its way to your email.</p>
+</div>
+
+<script>
+(() => {
+  const $  = (s, r = document) => r.querySelector(s);
+  const $$ = (s, r = document) => [...r.querySelectorAll(s)];
+  const money = n => '$' + n.toFixed(2);
+  const TAX = 0.08;
+  let discountRate = 0;
+
+  /* ---------- Totals ---------- */
+  function recalc() {
+    const items = $$('.item');
+    let subtotal = 0;
+    items.forEach(li => {
+      const qty = +$('.step-val', li).textContent;
+      const line = qty * +li.dataset.price;
+      $('.item-price', li).textContent = money(line);
+      $('.qty-badge', li).textContent = qty;
+      subtotal += line;
+    });
+    const ship = items.length ? +$('input[name=shipping]:checked').value : 0;
+    const discount = subtotal * discountRate;
+    const tax = (subtotal - discount) * TAX;
+    const total = subtotal - discount + ship + tax;
+
+    $('#subtotal').textContent = money(subtotal);
+    $('#discount').textContent = '−' + money(discount);
+    $('#discount-row').hidden = discountRate === 0;
+    $('#shipping').textContent = ship ? money(ship) : 'Free';
+    $('#ship-label').textContent = $('input[name=shipping]:checked').dataset.label;
+    $('#tax').textContent = money(tax);
+    $('#total').textContent = money(total);
+    $('#pay-total').textContent = money(total);
+    $('#empty').hidden = items.length > 0;
+    $('#pay-btn').disabled = items.length === 0;
+  }
+
+  $('#items').addEventListener('click', e => {
+    const li = e.target.closest('.item');
+    if (!li) return;
+    if (e.target.classList.contains('step')) {
+      const out = $('.step-val', li);
+      out.textContent = Math.min(10, Math.max(1, +out.textContent + +e.target.dataset.dir));
+      recalc();
+    }
+    if (e.target.classList.contains('remove')) { li.remove(); recalc(); }
+  });
+  $$('input[name=shipping]').forEach(r => r.addEventListener('change', recalc));
+
+  /* ---------- Promo (demo code: SAVE10) ---------- */
+  $('#promo-form').addEventListener('submit', e => {
+    e.preventDefault();
+    const code = $('#promo').value.trim().toUpperCase();
+    const msg = $('#promo-msg');
+    if (code === 'SAVE10') { discountRate = 0.1; msg.textContent = 'SAVE10 applied: 10% off.'; msg.className = 'promo-msg ok'; }
+    else { discountRate = 0; msg.textContent = 'That code isn’t valid or has expired.'; msg.className = 'promo-msg bad'; }
+    recalc();
+  });
+
+  /* ---------- Payment tabs ---------- */
+  $$('.tab').forEach(tab => tab.addEventListener('click', () => {
+    $$('.tab').forEach(t => { t.classList.toggle('is-active', t === tab); t.setAttribute('aria-selected', t === tab); });
+    $$('.panel').forEach(p => p.classList.toggle('is-active', p.id === 'panel-' + tab.dataset.panel));
+  }));
+  const method = () => $('.tab.is-active').dataset.panel;
+
+  /* ---------- Billing toggle ---------- */
+  $('#same-billing').addEventListener('change', e => { $('#billing-block').hidden = e.target.checked; });
+
+  /* ---------- Card formatting ---------- */
+  const num = $('#card-number');
+  const brandOf = d => /^4/.test(d) ? 'Visa' : /^(5[1-5]|2[2-7])/.test(d) ? 'Mastercard' : /^3[47]/.test(d) ? 'Amex' : /^35/.test(d) ? 'JCB' : '';
+  num.addEventListener('input', () => {
+    const d = num.value.replace(/\D/g, '').slice(0, 19);
+    const amex = /^3[47]/.test(d);
+    num.value = (amex ? d.replace(/^(\d{0,4})(\d{0,6})(\d{0,5}).*/, (_, a, b, c) => [a, b, c].filter(Boolean).join(' '))
+                      : d.replace(/(\d{4})(?=\d)/g, '$1 '));
+    $('#card-brand').textContent = brandOf(d);
+  });
+  $('#card-exp').addEventListener('input', e => {
+    let d = e.target.value.replace(/\D/g, '').slice(0, 4);
+    if (d.length >= 3) d = d.slice(0, 2) + ' / ' + d.slice(2);
+    e.target.value = d;
+  });
+  $('#card-cvc').addEventListener('input', e => { e.target.value = e.target.value.replace(/\D/g, '').slice(0, 4); });
+
+  const luhn = s => { let sum = 0, alt = false;
+    for (let i = s.length - 1; i >= 0; i--) { let n = +s[i]; if (alt) { n *= 2; if (n > 9) n -= 9; } sum += n; alt = !alt; }
+    return sum % 10 === 0; };
+
+  /* ---------- Validation ---------- */
+  const rules = {
+    email:  v => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v),
+    phone:  v => v.replace(/\D/g, '').length >= 8,
+    'card-number': v => { const d = v.replace(/\D/g, ''); return d.length >= 13 && luhn(d); },
+    'card-exp': v => {
+      const m = v.match(/^(\d{2}) \/ (\d{2})$/); if (!m) return false;
+      const mm = +m[1], yy = 2000 + +m[2], now = new Date();
+      return mm >= 1 && mm <= 12 && new Date(yy, mm) > now;
+    },
+    'card-cvc': v => /^\d{3,4}$/.test(v)
+  };
+  function check(input) {
+    const rule = rules[input.name];
+    const ok = rule ? rule(input.value.trim()) : input.value.trim() !== '';
+    input.classList.toggle('invalid', !ok);
+    const msg = $(`.error[data-for="${input.name}"]`);
+    if (msg) msg.classList.toggle('show', !ok);
+    return ok;
+  }
+  const required = () => $$('#checkout-form [required]').filter(i =>
+    !i.closest('.panel') || i.closest('.panel').classList.contains('is-active'));
+
+  $('#checkout-form').addEventListener('focusout', e => { if (e.target.matches('[required]') && e.target.value) check(e.target); });
+  $('#checkout-form').addEventListener('input', e => { if (e.target.classList.contains('invalid')) check(e.target); });
+
+  $('#checkout-form').addEventListener('submit', e => {
+    e.preventDefault();
+    const bad = required().filter(i => !check(i));
+    if (bad.length) { bad[0].focus(); return; }
+    // TODO: send the order to your server / payment provider here.
+    // Never send raw card numbers to your own backend; use a processor's hosted fields (Stripe, Adyen, etc.).
+    const t = $('#toast'); t.hidden = false; setTimeout(() => t.hidden = true, 5000);
+  });
+
+  recalc();
+})();
+</script>
+</body>
+</html>
