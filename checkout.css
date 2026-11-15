@@ -1,0 +1,594 @@
+/* ==========================================================
+   Tokens
+   ========================================================== */
+:root {
+  --accent: #a34c9c;
+  --accent-tint: #fbf3fb;
+  --bar: #d6155a;
+  --sky: #5eb3e5;
+
+  --ink: #1a1a1a;
+  --muted: #6b6b6b;
+  --line: #d6d6d6;
+  --white: #ffffff;
+
+  --radius: 10px;
+  --field-h: 48px;
+
+  --font: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+/* ==========================================================
+   Base
+   ========================================================== */
+*, *::before, *::after { box-sizing: border-box; }
+
+html, body { margin: 0; }
+
+body {
+  font-family: var(--font);
+  font-size: 14px;
+  line-height: 1.4;
+  color: var(--ink);
+  background: var(--white);
+  -webkit-font-smoothing: antialiased;
+}
+
+h2, h3, p, dl, dd { margin: 0; }
+
+h2 { font-size: 18px; font-weight: 600; }
+h3 { font-size: 14px; font-weight: 600; }
+
+a { color: inherit; }
+
+button, input, select { font: inherit; color: inherit; }
+
+.muted { color: var(--muted); font-size: 13px; }
+
+.link {
+  color: var(--accent);
+  font-size: 13px;
+  text-decoration: underline;
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.top-bar {
+  height: 5px;
+  background: var(--bar);
+}
+
+/* ==========================================================
+   Page layout
+   ========================================================== */
+.checkout {
+  display: flex;
+  min-height: calc(100vh - 5px);
+}
+
+.checkout__main {
+  flex: 1 1 50%;
+  display: flex;
+  justify-content: flex-end;
+  padding: 40px 28px 64px;
+  background: var(--white);
+}
+
+.checkout__summary {
+  flex: 1 1 50%;
+  display: flex;
+  justify-content: flex-start;
+  padding: 40px 28px 64px;
+  background: var(--sky);
+  color: var(--white);
+}
+
+.form    { width: 100%; max-width: 440px; }
+.summary { width: 100%; max-width: 360px; }
+
+/* ==========================================================
+   Form sections
+   ========================================================== */
+.section { margin-bottom: 28px; }
+
+.section > h2 { margin-bottom: 12px; }
+.section > h3 { margin-bottom: 10px; }
+.section > .muted { margin: -8px 0 12px; }
+
+.section__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+/* ==========================================================
+   Floating-label fields
+   ========================================================== */
+.field {
+  position: relative;
+  margin-bottom: 10px;
+}
+
+.field input,
+.field select {
+  width: 100%;
+  height: var(--field-h);
+  padding: 0 14px;
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  outline: none;
+  transition: border-color .15s, box-shadow .15s;
+}
+
+.field label {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--muted);
+  pointer-events: none;
+  transition: all .12s ease;
+}
+
+.field input:hover,
+.field select:hover { border-color: #b5b5b5; }
+
+.field input:focus,
+.field select:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 1px var(--accent);
+}
+
+/* Label floats up when focused or filled */
+.field input:focus + label,
+.field input:not(:placeholder-shown) + label {
+  top: 9px;
+  transform: none;
+  font-size: 11px;
+}
+
+.field input:focus,
+.field input:not(:placeholder-shown) {
+  padding-top: 16px;
+}
+
+/* Fields with a help icon */
+.field--icon input { padding-right: 44px; }
+
+.help {
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 16px;
+  height: 16px;
+  border: 1.4px solid var(--muted);
+  border-radius: 50%;
+  font-size: 10px;
+  font-weight: 600;
+  line-height: 13px;
+  text-align: center;
+  color: var(--muted);
+  cursor: help;
+}
+
+/* Select: label is always floated */
+.field--select select {
+  padding-top: 16px;
+  appearance: none;
+  -webkit-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8' fill='none' stroke='%23555' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M1 1.5l5 5 5-5'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 16px center;
+  cursor: pointer;
+}
+
+.field--select label {
+  top: 9px;
+  transform: none;
+  font-size: 11px;
+}
+
+/* ==========================================================
+   Checkbox
+   ========================================================== */
+.check {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 12px;
+  cursor: pointer;
+  font-size: 13px;
+}
+
+.check input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.check__box {
+  flex: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 5px;
+  border: 1px solid var(--line);
+  background: var(--white) center / 12px no-repeat;
+  transition: background-color .15s, border-color .15s;
+}
+
+.check input:checked + .check__box {
+  background-color: var(--accent);
+  border-color: var(--accent);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M2.5 6.2l2.4 2.4 4.6-5'/%3E%3C/svg%3E");
+}
+
+.check input:focus-visible + .check__box {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* ==========================================================
+   Selectable options (shipping / payment)
+   ========================================================== */
+.option {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 46px;
+  padding: 12px 14px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--white);
+  cursor: pointer;
+  font-size: 13px;
+}
+
+.option input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.option--selected {
+  border-color: var(--accent);
+  background: var(--accent-tint);
+  box-shadow: 0 0 0 1px var(--accent);
+}
+
+.option:has(input:focus-visible) {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.option__label { font-weight: 500; }
+
+/* Payment card sits left aligned with room for text */
+.option--stack {
+  min-height: 56px;
+  font-size: 14px;
+}
+
+.cod-note {
+  margin-top: 10px;
+  padding: 14px;
+  border-radius: var(--radius);
+  background: #f5f5f5;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+/* ==========================================================
+   Primary button
+   ========================================================== */
+.btn-primary {
+  width: 100%;
+  height: 54px;
+  border: 0;
+  border-radius: var(--radius);
+  background: var(--accent);
+  color: var(--white);
+  font-weight: 600;
+  font-size: 15px;
+  cursor: pointer;
+  transition: filter .15s;
+}
+
+.btn-primary:hover { filter: brightness(.92); }
+
+/* ==========================================================
+   Order summary (right column)
+   ========================================================== */
+.item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.item__info { flex: 1; min-width: 0; }
+.item__name { font-size: 13px; font-weight: 500; }
+
+.item__options {
+  font-size: 11px;
+  color: #b0359f;
+  text-decoration: underline;
+}
+
+.item__price { font-size: 13px; font-weight: 500; }
+
+/* Thumbnails — swap for <img> when real product photos are available */
+.thumb {
+  position: relative;
+  flex: none;
+  width: 48px;
+  height: 48px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, .7);
+  background: #2f3a4a;
+}
+
+.thumb--pin    { width: 52px; height: 52px; background: radial-gradient(circle at 50% 50%, #e2578f 0 18%, #f7e9f1 19% 100%); }
+.thumb--circus { background: linear-gradient(135deg, #f4a3c4 0 33%, #7cc4ee 33% 66%, #f2c94c 66%); }
+.thumb--drones { background: linear-gradient(135deg, #1b1f2b 0 50%, #55607a 50%); }
+.thumb--doll   { background: linear-gradient(135deg, #8e44ad 0 50%, #e8b54a 50%); }
+
+.badge {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  min-width: 20px;
+  height: 20px;
+  padding: 0 5px;
+  border-radius: 10px;
+  background: rgba(110, 110, 110, .9);
+  color: var(--white);
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 20px;
+  text-align: center;
+}
+
+/* Discount */
+.discount {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 18px 0 24px;
+  padding: 6px 6px 6px 14px;
+  background: var(--white);
+  border-radius: var(--radius);
+  border: 1px solid rgba(255, 255, 255, .8);
+}
+
+.discount input {
+  flex: 1;
+  min-width: 0;
+  height: 32px;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: var(--ink);
+  font-size: 13px;
+}
+
+.discount input::placeholder { color: var(--muted); }
+
+.discount:focus-within { box-shadow: 0 0 0 2px var(--accent); }
+
+.btn-apply {
+  height: 32px;
+  padding: 0 14px;
+  border: 0;
+  border-radius: 8px;
+  background: #ebebeb;
+  color: #8a8a8a;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.btn-apply:hover { background: #e0e0e0; color: var(--ink); }
+
+/* Totals */
+.totals { margin-bottom: 28px; }
+
+.totals__row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 6px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.totals__row--total {
+  margin-top: 14px;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.totals__row--total dd { font-size: 17px; }
+
+.currency {
+  margin-right: 4px;
+  font-size: 11px;
+  font-weight: 500;
+  opacity: .8;
+}
+
+/* "Frequently bought together" heading with side lines */
+.divider-title {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 16px;
+  font-size: 12px;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.divider-title::before,
+.divider-title::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: rgba(255, 255, 255, .8);
+}
+
+/* Upsell cards */
+.upsell {
+  position: relative;
+  display: flex;
+  gap: 12px;
+  margin-bottom: 12px;
+  padding: 12px;
+  border: 1px solid rgba(255, 255, 255, .85);
+  border-radius: var(--radius);
+}
+
+.upsell__body {
+  flex: 1;
+  min-width: 0;
+  padding-right: 48px;
+}
+
+.upsell__name {
+  margin-bottom: 8px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.upsell__price {
+  margin-top: 6px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.select-sm {
+  position: relative;
+  margin-bottom: 8px;
+}
+
+.select-sm label {
+  position: absolute;
+  top: 5px;
+  left: 10px;
+  font-size: 10px;
+  color: var(--muted);
+  pointer-events: none;
+}
+
+.select-sm select {
+  width: 100%;
+  height: 36px;
+  padding: 12px 28px 0 10px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--white);
+  color: var(--ink);
+  font-size: 12px;
+  appearance: none;
+  -webkit-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='7' viewBox='0 0 12 8' fill='none' stroke='%23555' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M1 1.5l5 5 5-5'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  cursor: pointer;
+}
+
+/* Quantity stepper */
+.qty {
+  display: flex;
+  align-items: center;
+  width: 105px;
+  height: 36px;
+  padding: 0 6px 0 10px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--white);
+  color: var(--ink);
+}
+
+.qty input {
+  flex: 1;
+  width: 100%;
+  min-width: 0;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  font-size: 12px;
+  -moz-appearance: textfield;
+}
+
+.qty input::-webkit-outer-spin-button,
+.qty input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+
+.qty button {
+  width: 22px;
+  height: 22px;
+  border: 0;
+  background: transparent;
+  font-size: 16px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.qty button:disabled { color: #b5b5b5; cursor: default; }
+
+/* Add button */
+.btn-add {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 40px;
+  height: 36px;
+  border: 1px solid rgba(255, 255, 255, .9);
+  border-radius: 8px;
+  background: transparent;
+  color: #a8219a;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background .15s;
+}
+
+.btn-add:hover { background: rgba(255, 255, 255, .35); }
+
+/* ==========================================================
+   Responsive — stack columns, summary on top
+   ========================================================== */
+@media (max-width: 800px) {
+  .checkout { flex-direction: column; }
+
+  .checkout__summary {
+    order: -1;
+    padding: 24px 16px;
+  }
+
+  .checkout__main {
+    padding: 24px 16px 48px;
+  }
+
+  .form,
+  .summary { max-width: none; }
+}
+
+@media (max-width: 420px) {
+  .row { grid-template-columns: 1fr; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; }
+}
