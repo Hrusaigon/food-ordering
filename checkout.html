@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Checkout</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="top-bar"></div>
+
+  <div class="checkout">
+
+    <!-- ============ LEFT: FORM ============ -->
+    <main class="checkout__main">
+      <form class="form" action="#" method="post">
+
+        <!-- Contact -->
+        <section class="section">
+          <div class="section__head">
+            <h2>Contact</h2>
+            <a href="#" class="link">Sign in</a>
+          </div>
+
+          <div class="field field--icon">
+            <input type="email" id="email" name="email" placeholder=" " autocomplete="email" required>
+            <label for="email">Email</label>
+            <span class="help" title="We'll send your order confirmation here">?</span>
+          </div>
+
+          <label class="check">
+            <input type="checkbox" name="newsletter" checked>
+            <span class="check__box"></span>
+            <span class="check__text">Email me with news and offers</span>
+          </label>
+        </section>
+
+        <!-- Delivery -->
+        <section class="section">
+          <h2>Delivery</h2>
+
+          <div class="field field--select">
+            <select id="country" name="country" autocomplete="country-name">
+              <option>Vietnam</option>
+              <option>Singapore</option>
+              <option>Thailand</option>
+              <option>Malaysia</option>
+              <option>United States</option>
+            </select>
+            <label for="country">Country/Region</label>
+          </div>
+
+          <div class="row">
+            <div class="field">
+              <input type="text" id="first-name" name="first_name" placeholder=" " autocomplete="given-name">
+              <label for="first-name">First name (optional)</label>
+            </div>
+            <div class="field">
+              <input type="text" id="last-name" name="last_name" placeholder=" " autocomplete="family-name" required>
+              <label for="last-name">Last name</label>
+            </div>
+          </div>
+
+          <div class="field">
+            <input type="text" id="address" name="address" placeholder=" " autocomplete="address-line1" required>
+            <label for="address">Address</label>
+          </div>
+
+          <div class="field">
+            <input type="text" id="address2" name="address2" placeholder=" " autocomplete="address-line2">
+            <label for="address2">Apartment, suite, etc. (optional)</label>
+          </div>
+
+          <div class="row">
+            <div class="field">
+              <input type="text" id="city" name="city" placeholder=" " autocomplete="address-level2" required>
+              <label for="city">City</label>
+            </div>
+            <div class="field">
+              <input type="text" id="postal" name="postal" placeholder=" " autocomplete="postal-code">
+              <label for="postal">Postal code (optional)</label>
+            </div>
+          </div>
+
+          <div class="field field--icon">
+            <input type="tel" id="phone" name="phone" placeholder=" " autocomplete="tel" required>
+            <label for="phone">Phone</label>
+            <span class="help" title="In case we need to contact you about your order">?</span>
+          </div>
+        </section>
+
+        <!-- Shipping method -->
+        <section class="section">
+          <h3>Shipping method</h3>
+
+          <label class="option option--selected">
+            <input type="radio" name="shipping" value="air" checked>
+            <span class="option__label">Air Package</span>
+            <span class="option__price">₫60,000</span>
+          </label>
+        </section>
+
+        <!-- Payment -->
+        <section class="section">
+          <h2>Payment</h2>
+          <p class="muted">All transactions are secure and encrypted.</p>
+
+          <label class="option option--selected option--stack">
+            <input type="radio" name="payment" value="cod" checked>
+            <span class="option__label">Cash on Delivery (COD)</span>
+          </label>
+
+          <div class="cod-note">
+            Pay in cash when your order arrives. Please have the exact amount ready
+            for the delivery person.
+          </div>
+        </section>
+
+        <button type="submit" class="btn-primary">Complete order</button>
+
+      </form>
+    </main>
+
+    <!-- ============ RIGHT: SUMMARY ============ -->
+    <aside class="checkout__summary">
+      <div class="summary">
+
+        <!-- Cart item -->
+        <div class="item">
+          <div class="thumb thumb--pin">
+            <span class="badge">1</span>
+          </div>
+          <div class="item__info">
+            <p class="item__name">Absolute Solver Pin</p>
+            <a href="#" class="item__options">Change options</a>
+          </div>
+          <p class="item__price">₫315,000</p>
+        </div>
+
+        <!-- Discount -->
+        <div class="discount">
+          <input type="text" name="discount" placeholder="Discount code" aria-label="Discount code">
+          <button type="button" class="btn-apply">Apply</button>
+        </div>
+
+        <!-- Totals -->
+        <dl class="totals">
+          <div class="totals__row">
+            <dt>Subtotal</dt>
+            <dd>₫315,000</dd>
+          </div>
+          <div class="totals__row">
+            <dt>Shipping</dt>
+            <dd>₫60,000</dd>
+          </div>
+          <div class="totals__row totals__row--total">
+            <dt>Total</dt>
+            <dd><span class="currency">VND</span> ₫375,000</dd>
+          </div>
+        </dl>
+
+        <!-- Upsell -->
+        <div class="divider-title"><span>Frequently bought together</span></div>
+
+        <article class="upsell">
+          <div class="thumb thumb--circus"></div>
+          <div class="upsell__body">
+            <p class="upsell__name">Digital Circus Animiniz: Main Character Series Blindbox</p>
+            <div class="select-sm">
+              <label for="variant-1">Variant</label>
+              <select id="variant-1">
+                <option>Single Box</option>
+                <option>Full Set</option>
+              </select>
+            </div>
+            <div class="qty">
+              <input type="number" value="1" min="1" aria-label="Quantity">
+              <button type="button" aria-label="Decrease quantity" disabled>&minus;</button>
+              <button type="button" aria-label="Increase quantity">+</button>
+            </div>
+            <p class="upsell__price">₫394,000</p>
+          </div>
+          <button type="button" class="btn-add">Add</button>
+        </article>
+
+        <article class="upsell">
+          <div class="thumb thumb--drones"></div>
+          <div class="upsell__body">
+            <p class="upsell__name">Murder Drones Animiniz: Main Character Series Blindbox</p>
+            <div class="select-sm">
+              <label for="variant-2">Variant</label>
+              <select id="variant-2">
+                <option>Single Box</option>
+                <option>Full Set</option>
+              </select>
+            </div>
+            <div class="qty">
+              <input type="number" value="1" min="1" aria-label="Quantity">
+              <button type="button" aria-label="Decrease quantity" disabled>&minus;</button>
+              <button type="button" aria-label="Increase quantity">+</button>
+            </div>
+            <p class="upsell__price">₫394,000</p>
+          </div>
+          <button type="button" class="btn-add">Add</button>
+        </article>
+
+        <article class="upsell">
+          <div class="thumb thumb--doll"></div>
+          <div class="upsell__body">
+            <p class="upsell__name">Doll Pin</p>
+            <div class="qty">
+              <input type="number" value="1" min="1" aria-label="Quantity">
+              <button type="button" aria-label="Decrease quantity" disabled>&minus;</button>
+              <button type="button" aria-label="Increase quantity">+</button>
+            </div>
+            <p class="upsell__price">₫315,000</p>
+          </div>
+          <button type="button" class="btn-add">Add</button>
+        </article>
+
+      </div>
+    </aside>
+
+  </div>
+</body>
+</html>
