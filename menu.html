@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dinner Menu</title>
     <link rel="stylesheet" href="{{url_for('static', filename='menu.css')}}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <body>
     {% include "navbar.html" %}
@@ -21,12 +22,12 @@
             <div class="card-container">
                 {% for row in menu %}
                     {% if row[1] == i + 1 %}
-                        <div class="card">
+                        <div class="card" id="{{row[0]}}">
                             <h3>{{ row[2] }}</h3>
                             <p>{{ row[3] }}</p>
                             <img src="{{ row[5] }}">
                             <p>{{ row[4] }}</p>
-                            <button>Add to cart</button>
+                            <button name="add-cart">Add to cart</button>
                         </div>
                     {% endif %}
                 {% endfor %}
@@ -48,3 +49,19 @@
 
 </body>
 </html>
+<script>
+    const add_buttons = document.getElementsByName("add-cart")
+
+    for (let i = 0; i < add_buttons.length; i++){
+        add_buttons[i].addEventListener("click", function(){
+            $.ajax({
+                url: "/add-food",
+                type: "POST",
+                contentType: "application/json",
+                data: JSON.stringify({
+                    "food-id": add_buttons[i].id
+                })
+            })
+        })
+    }
+</script>

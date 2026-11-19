@@ -44,7 +44,7 @@ button { font: inherit; color: inherit; cursor: pointer; }
 .screen {
   display: flex;
   flex-direction: column;
-  max-width: 430px;
+  max-width: 75%;
   min-height: 100vh;
   margin: 0 auto;
   background: linear-gradient(180deg, var(--bg-top), var(--bg-bottom));
@@ -64,6 +64,8 @@ button { font: inherit; color: inherit; cursor: pointer; }
   font-size: 22px;
   font-weight: 600;
   letter-spacing: -0.01em;
+  text-align: center;
+  width: 100%;
 }
 
 .icon-btn {
@@ -75,6 +77,7 @@ button { font: inherit; color: inherit; cursor: pointer; }
   border-radius: 14px;
   background: rgba(255, 255, 255, .55);
   transition: background .15s;
+  flex-shrink: 3;
 }
 
 .icon-btn--round { border-radius: 50%; }

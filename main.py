@@ -26,7 +26,9 @@ def menu():
 
     return render_template("menu.html", categories=category_list, menu=menu)
 
-
+@app.route("/add-food", methods=["POST"])
+def add_food():
+    pass
 
 @app.route("/cart")
 def cart():
