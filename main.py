@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request, session
 import os, sqlite3
 
 current_folder = os.getcwd() # current working directory
@@ -28,7 +28,8 @@ def menu():
 
 @app.route("/add-food", methods=["POST"])
 def add_food():
-    pass
+    data = request.get_json()
+
 
 @app.route("/cart")
 def cart():
