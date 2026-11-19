@@ -33,9 +33,9 @@ def cart():
     return render_template("cart.html")
 
 
-@app.route("/finalize")
+@app.route("/checkout")
 def finalize():
-    return render_template("finalize.html")
+    return render_template("checkout.html")
 
 if __name__ == "__main__":
     app.run(host = "0.0.0.0", debug = True)
